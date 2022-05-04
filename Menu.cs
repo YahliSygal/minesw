@@ -19,7 +19,9 @@ namespace minesweeper
 
         //MediaPlayer media;
 
+        Button easy;
         Button normal;
+        Button hard;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -28,7 +30,9 @@ namespace minesweeper
 
             // Create your application here
 
+            easy = FindViewById<Button>(Resource.Id.easyDif);
             normal = FindViewById<Button>(Resource.Id.normalDif);
+            hard = FindViewById<Button>(Resource.Id.hardDif);
 
             //volume = FindViewById<ImageView>(Resource.Id.volumeMenu);
 
@@ -36,18 +40,28 @@ namespace minesweeper
             //volume.Click += this.Volume_Click;
             //startPlayer();
 
+            easy.SetOnClickListener(this);
             normal.SetOnClickListener(this);
+            hard.SetOnClickListener(this);
 
         }
 
         public void OnClick(View v)
         {
-            if (v == normal)
+            Intent i = new Intent(this, typeof(GameGrid));
+            if (v == easy)
             {
-                Intent i = new Intent(this, typeof(GameGrid));
-                i.PutExtra("dif", "nor");
-                StartActivity(i);
+                i.PutExtra("dif", "easy");
             }
+            else if (v == easy)
+            {
+                i.PutExtra("dif", "nor");
+            }
+            else if (v == hard)
+            {
+                i.PutExtra("dif", "hard");
+            }
+            StartActivity(i);
         }
 
         //private void Volume_Click(object sender, EventArgs e)

@@ -20,9 +20,29 @@
         android:layout_height="70dp"
         android:layout_gravity="center"
         android:layout_marginTop="140dp"
+        android:text="Easy"
+        android:textSize="20dp"
+        android:id="@+id/easyDif"
+    />
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
         android:text="Normal"
         android:textSize="20dp"
         android:id="@+id/normalDif"
+    />
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="Hard"
+        android:textSize="20dp"
+        android:id="@+id/hardDif"
     />
     
 

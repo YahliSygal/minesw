@@ -20,11 +20,14 @@ namespace minesweeper
 
         bool created = false;
 
-        int uncovered;
+        int uncoveredRight;
+        int uncoveredWrong;
         int covered;
 
         ImageView[,] grid = new ImageView[10, 10];
         int[,] gridRep = new int[10, 10];
+
+        Button uncoverB;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -33,10 +36,17 @@ namespace minesweeper
 
             // Create your application here
 
+            uncoverB = FindViewById<Button>(Resource.Id.uncoverB);
+            uncoverB.Click += this.UncoverB_Click;
 
             dif = Intent.GetStringExtra("dif");
             assignGrid();
             
+        }
+
+        private void UncoverB_Click(object sender, EventArgs e)
+        {
+            UncoverGrid();
         }
 
         private void assignGrid()
@@ -76,6 +86,7 @@ namespace minesweeper
             {
                 bombs = Con.HARD_DIFFICULTY;
             }
+            this.covered = bombs;
             for (int i = 0; i < bombs; i++)
             {
                 flag = false;
@@ -101,6 +112,7 @@ namespace minesweeper
                     this.gridRep[i, j] = NumOfBombs(i, j);
                 }
             }
+            this.created = true;
         }
 
         private int NumOfBombs(int row, int col)
@@ -180,7 +192,7 @@ namespace minesweeper
                     cou++;
                 if (this.gridRep[1, col - 1] == 99)
                     cou++;
-
+                return cou;
             }
 
             if (row == 9)
@@ -195,7 +207,7 @@ namespace minesweeper
                     cou++;
                 if (this.gridRep[9, col - 1] == 99)
                     cou++;
-
+                return cou;
             }
 
             if (this.gridRep[row - 1, col - 1] == 99)
@@ -276,16 +288,51 @@ namespace minesweeper
             {
                 CreateGrid(getIndex(temp));
             }
+            UncoverTile(getIndex(temp));
             
         }
 
         public bool OnLongClick(View v)
         {
-            
             if (!created)
             {
                 OnClick(v);
                 return true;
+            }
+            ImageView temp = (ImageView)v;
+            if (this.gridRep[getIndex(temp) / 10, getIndex(temp) % 10] == 99)
+            {              
+                this.gridRep[getIndex(temp) / 10, getIndex(temp) % 10] = 999;
+                temp.SetImageResource(Resource.Drawable.flagged);
+                uncoveredRight++;
+                covered--;
+            }
+            else if (this.gridRep[getIndex(temp) / 10, getIndex(temp) % 10] < 9)
+            {
+                this.gridRep[getIndex(temp) / 10, getIndex(temp) % 10]++;
+                this.gridRep[getIndex(temp) / 10, getIndex(temp) % 10] *= 10;
+                temp.SetImageResource(Resource.Drawable.flagged);
+                uncoveredWrong++;
+                covered--;
+            }
+            else if (this.gridRep[getIndex(temp) / 10, getIndex(temp) % 10] == 999)
+            {
+                this.gridRep[getIndex(temp) / 10, getIndex(temp) % 10] = 99;
+                temp.SetImageResource(Resource.Drawable.covered);
+                uncoveredRight--;
+                covered++;
+            }
+            else
+            {
+                this.gridRep[getIndex(temp) / 10, getIndex(temp) % 10] /= 10;
+                this.gridRep[getIndex(temp) / 10, getIndex(temp) % 10]--;
+                uncoveredWrong--;
+                covered++;
+            }
+            
+            if(covered == 0 && uncoveredWrong == 0)
+            {
+                GameWon();
             }
 
             return true;
@@ -341,6 +388,15 @@ namespace minesweeper
             Toast.MakeText(this, "Game Lost", ToastLength.Short).Show();
             Intent i = new Intent(this, typeof(Menu));
             StartActivity(i);
+        }
+
+        public void GameWon()
+        {
+            UncoverGrid();
+            Thread.Sleep(10000);
+            Toast.MakeText(this, "Game Won", ToastLength.Short).Show();
+            //Intent i = new Intent(this, typeof(Menu));
+            //StartActivity(i);
         }
 
         public void UncoverGrid()

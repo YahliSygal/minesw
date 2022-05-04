@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="Shahar"
+        android:textSize="20dp"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:id="@+id/userDisplay"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Score:"
+        android:textSize="40dp"
+        android:textColor="@android:color/black"
+        android:gravity="center"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:textSize="30dp"
+        android:text="999"
+        android:textColor="@android:color/black"
+        android:textAlignment="center"
+        />
+
+</LinearLayout>
