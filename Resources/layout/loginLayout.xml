@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/material_blue_grey_800"
+    >
+
+    <EditText
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        android:hint="Username"
+        android:layout_gravity="center"
+        android:textSize="25dp"
+        android:textColor="#d3d3d3"
+        android:backgroundTint="#a9a9a9"
+        android:layout_marginTop="60dp"
+        android:id="@+id/username"
+        />
+
+        <EditText
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        android:hint="Password"
+        android:layout_gravity="center"
+        android:textSize="25dp"
+        android:textColor="#d3d3d3"
+        android:backgroundTint="#a9a9a9"
+        android:layout_marginTop="30dp"
+        android:password="true"
+        android:id="@+id/password"
+        />
+
+    <Button
+        android:layout_width="190dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:text="Submit"
+        android:layout_marginTop="40dp"
+        android:textSize="20dp"
+        android:id="@+id/submitLogin"
+        />
+
+</LinearLayout>
