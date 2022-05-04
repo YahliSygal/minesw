@@ -53,7 +53,7 @@ namespace minesweeper
             {
                 i.PutExtra("dif", "easy");
             }
-            else if (v == easy)
+            else if (v == normal)
             {
                 i.PutExtra("dif", "nor");
             }

@@ -34,6 +34,16 @@
         android:text="999"
         android:textColor="@android:color/black"
         android:textAlignment="center"
+        android:id="@+id/scorePlayer"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Back to Menu"
+        android:id="@+id/backToMenuButton"
+        android:textSize="30dp"
         />
 
 </LinearLayout>

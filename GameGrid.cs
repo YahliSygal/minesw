@@ -28,6 +28,9 @@ namespace minesweeper
         int[,] gridRep = new int[10, 10];
 
         Button uncoverB;
+        Button Back;
+
+        TextView BombsRemained;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -36,12 +39,21 @@ namespace minesweeper
 
             // Create your application here
 
+            BombsRemained = FindViewById<TextView>(Resource.Id.BombsRemained);
+            Back = FindViewById<Button>(Resource.Id.BackButton);
+            Back.Click += this.Back_Click;
             uncoverB = FindViewById<Button>(Resource.Id.uncoverB);
             uncoverB.Click += this.UncoverB_Click;
 
             dif = Intent.GetStringExtra("dif");
             assignGrid();
             
+        }
+
+        private void Back_Click(object sender, EventArgs e)
+        {
+            Intent i = new Intent(this, typeof(Menu));
+            StartActivity(i);
         }
 
         private void UncoverB_Click(object sender, EventArgs e)
@@ -73,7 +85,7 @@ namespace minesweeper
                 return;
             }
 
-            int bombs = 0;
+            int bombs = Con.NORMAL_DIFFICULTY;
             if (dif == "easy")
             {
                 bombs = Con.EASY_DIFFICULTY;
@@ -87,6 +99,7 @@ namespace minesweeper
                 bombs = Con.HARD_DIFFICULTY;
             }
             this.covered = bombs;
+            BombsRemained.Text = Convert.ToString(uncoveredRight + uncoveredWrong) + "/" + Convert.ToString(covered + uncoveredWrong + uncoveredRight);
             for (int i = 0; i < bombs; i++)
             {
                 flag = false;
@@ -329,8 +342,11 @@ namespace minesweeper
                 uncoveredWrong--;
                 covered++;
             }
-            
-            if(covered == 0 && uncoveredWrong == 0)
+
+            BombsRemained.Text = Convert.ToString(uncoveredRight + uncoveredWrong) + "/" + Convert.ToString(covered + uncoveredWrong + uncoveredRight);
+
+
+            if (covered == 0 && uncoveredWrong == 0)
             {
                 GameWon();
             }
@@ -342,6 +358,7 @@ namespace minesweeper
         {
             if (this.gridRep[ind / 10, ind % 10] == 99)
             {
+                this.grid[ind / 10, ind % 10].SetImageResource(Resource.Drawable.bomb);
                 GameLost();
                 return false;
             }
@@ -384,10 +401,7 @@ namespace minesweeper
         public void GameLost()
         {
             UncoverGrid();
-            Thread.Sleep(10000);
             Toast.MakeText(this, "Game Lost", ToastLength.Short).Show();
-            Intent i = new Intent(this, typeof(Menu));
-            StartActivity(i);
         }
 
         public void GameWon()
@@ -395,8 +409,8 @@ namespace minesweeper
             UncoverGrid();
             Thread.Sleep(10000);
             Toast.MakeText(this, "Game Won", ToastLength.Short).Show();
-            //Intent i = new Intent(this, typeof(Menu));
-            //StartActivity(i);
+            Intent i = new Intent(this, typeof(score));
+            StartActivity(i);
         }
 
         public void UncoverGrid()
@@ -405,6 +419,11 @@ namespace minesweeper
             {
                 for (int j = 0; j < 10; j++)
                 {
+                    if (this.gridRep[i, j] > 8 && this.gridRep[i, j] < 91)
+                    {
+                        this.gridRep[i, j] /= 10;
+                        this.gridRep[i, j]--;
+                    }
                     switch (this.gridRep[i, j])
                     {
                         case 0:

@@ -68,6 +68,7 @@
     <Compile Include="MusicPlayer\MusicService.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="score.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -141,6 +142,9 @@
     <AndroidResource Include="Resources\drawable\six.jpeg" />
     <AndroidResource Include="Resources\drawable\three.jpeg" />
     <AndroidResource Include="Resources\drawable\two.jpeg" />
+    <AndroidResource Include="Resources\layout\Score.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

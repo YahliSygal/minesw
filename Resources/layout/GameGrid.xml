@@ -11,17 +11,35 @@
     <TextView
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:text="20"
+        android:text="∞"
         android:textSize="20dp"
         android:gravity="center"
+        android:layout_gravity="center"
+        android:textColor="@android:color/black"
+        android:id="@+id/BombsRemained"
         />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="uncover"
         android:id="@+id/uncoverB"
+        android:layout_marginRight="20dp"
         />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:id="@+id/BackButton"
+        android:layout_marginLeft="20dp"
+        />
+
+      </LinearLayout>
 
         <LinearLayout
         android:layout_width="match_parent"
@@ -904,6 +922,7 @@
 		/>
 
     </LinearLayout>
+
     
 
 </LinearLayout>
