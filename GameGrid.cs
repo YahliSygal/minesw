@@ -296,7 +296,42 @@ namespace minesweeper
             if (this.gridRep[ind / 10, ind % 10] == 99)
             {
                 GameLost();
+                return false;
             }
+            int i = ind / 10;
+            int j = ind % 10;
+
+            switch (this.gridRep[i, j])
+            {
+                case 0:
+                    this.grid[i, j].SetImageResource(Resource.Drawable.blank);
+                    break;
+                case 1:
+                    this.grid[i, j].SetImageResource(Resource.Drawable.one);
+                    break;
+                case 2:
+                    this.grid[i, j].SetImageResource(Resource.Drawable.two);
+                    break;
+                case 3:
+                    this.grid[i, j].SetImageResource(Resource.Drawable.three);
+                    break;
+                case 4:
+                    this.grid[i, j].SetImageResource(Resource.Drawable.four);
+                    break;
+                case 5:
+                    this.grid[i, j].SetImageResource(Resource.Drawable.five);
+                    break;
+                case 6:
+                    this.grid[i, j].SetImageResource(Resource.Drawable.six);
+                    break;
+                case 7:
+                    this.grid[i, j].SetImageResource(Resource.Drawable.seven);
+                    break;
+                case 8:
+                    this.grid[i, j].SetImageResource(Resource.Drawable.eight);
+                    break;
+            }
+            return true;
         }
 
         public void GameLost()
@@ -312,7 +347,42 @@ namespace minesweeper
         {
             for (int i = 0; i < 10; i++)
             {
-                for (int j = 0; j < 10)
+                for (int j = 0; j < 10; j++)
+                {
+                    switch (this.gridRep[i, j])
+                    {
+                        case 0:
+                            this.grid[i, j].SetImageResource(Resource.Drawable.blank);
+                            break;
+                        case 1:
+                            this.grid[i, j].SetImageResource(Resource.Drawable.one);
+                            break;
+                        case 2:
+                            this.grid[i, j].SetImageResource(Resource.Drawable.two);
+                            break;
+                        case 3:
+                            this.grid[i, j].SetImageResource(Resource.Drawable.three);
+                            break;
+                        case 4:
+                            this.grid[i, j].SetImageResource(Resource.Drawable.four);
+                            break;
+                        case 5:
+                            this.grid[i, j].SetImageResource(Resource.Drawable.five);
+                            break;
+                        case 6:
+                            this.grid[i, j].SetImageResource(Resource.Drawable.six);
+                            break;
+                        case 7:
+                            this.grid[i, j].SetImageResource(Resource.Drawable.seven);
+                            break;
+                        case 8:
+                            this.grid[i, j].SetImageResource(Resource.Drawable.eight);
+                            break;
+                        case 99:
+                            this.grid[i, j].SetImageResource(Resource.Drawable.bomb);
+                            break;
+                    }
+                }
             }
         }
     }
