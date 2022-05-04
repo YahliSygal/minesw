@@ -17,8 +17,9 @@ namespace minesweeper
 
         //string constants
         public const string DB_PATH = "scores.sqlite";
-        public const int NORMAL_DIFFICULTY_GRID = 8;
-        public const int NORMAL_DIFFICULTY_BOMBS = 8;
+        public const int EASY_DIFFICULTY = 5;
+        public const int NORMAL_DIFFICULTY = 8;
+        public const int HARD_DIFFICULTY = 20;
 
 
         //structs

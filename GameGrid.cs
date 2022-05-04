@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace minesweeper
 {
@@ -18,6 +19,9 @@ namespace minesweeper
 
 
         bool created = false;
+
+        int uncovered;
+        int covered;
 
         ImageView[,] grid = new ImageView[10, 10];
         int[,] gridRep = new int[10, 10];
@@ -49,33 +53,169 @@ namespace minesweeper
             }
         }
 
-        private void CreateGrid(ImageView ima)
+        private void CreateGrid(int ind)
         {
             bool flag = false;
             Random rnd = new Random();
-            int ind = getIndex(ima);
-            int[] bombs = new int[5];
             int temp = 0;
-            if (ind == 100)
+            if (ind == 101)
             {
                 return;
             }
-            int row = ind / 10;
-            int col = ind % 10;
-            
-            for (int i = 0; i < 5; i++)
+
+            int bombs = 0;
+            if (dif == "easy")
+            {
+                bombs = Con.EASY_DIFFICULTY;
+            }
+            if (dif == "nor")
+            {
+                bombs = Con.NORMAL_DIFFICULTY;
+            }
+            if (dif == "hard")
+            {
+                bombs = Con.HARD_DIFFICULTY;
+            }
+            for (int i = 0; i < bombs; i++)
             {
                 flag = false;
                 do
                 {
-                    temp = rnd.Next(0, 100);
+                    temp = rnd.Next(0, 101);
                     if (CheckValidity(ind, temp))
                     {
                         flag = true;
-                        bombs[i] = temp;
+                        this.gridRep[temp / 10, temp % 10] = 99;
                     }
                 } while (!flag);
             }
+
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    if (this.gridRep[i, j] == 99)
+                    {
+                        continue;
+                    }
+                    this.gridRep[i, j] = NumOfBombs(i, j);
+                }
+            }
+        }
+
+        private int NumOfBombs(int row, int col)
+        {
+            int cou = 0;
+            if (col == 9)
+            {
+                if (this.gridRep[row, col - 1] == 99)
+                    cou++;
+                if (row == 0)
+                {
+                    if (this.gridRep[1, 8] == 99)
+                        cou++;
+                    if (this.gridRep[1, 9] == 99)
+                        cou++;
+                    return cou;
+                }
+                if (row == 9)
+                {
+                    if (this.gridRep[8, 8] == 99)
+                        cou++;
+                    if (this.gridRep[8, 9] == 99)
+                        cou++;
+                    return cou;
+                }
+                if (this.gridRep[row + 1, 8] == 99)
+                    cou++;
+                if (this.gridRep[row + 1, 9] == 99)
+                    cou++;
+                if (this.gridRep[row - 1, 8] == 99)
+                    cou++;
+                if (this.gridRep[row - 1, 9] == 99)
+                    cou++;
+                return cou;
+            }
+
+            if (col == 0)
+            {
+                if (this.gridRep[row, col + 1] == 99)
+                    cou++;
+                if (row == 0)
+                {
+                    if (this.gridRep[1, 0] == 99)
+                        cou++;
+                    if (this.gridRep[1, 1] == 99)
+                        cou++;
+                    return cou;
+                }
+                if (row == 9)
+                {
+                    if (this.gridRep[8, 0] == 99)
+                        cou++;
+                    if (this.gridRep[8, 1] == 99)
+                        cou++;
+                    return cou;
+                }
+                if (this.gridRep[row + 1, 0] == 99)
+                    cou++;
+                if (this.gridRep[row + 1, 1] == 99)
+                    cou++;
+                if (this.gridRep[row - 1, 0] == 99)
+                    cou++;
+                if (this.gridRep[row - 1, 1] == 99)
+                    cou++;
+                return cou;
+            }
+
+            if (row == 0)
+            {
+                if (this.gridRep[row + 1, col] == 99)
+                    cou++;
+                if (this.gridRep[0, col + 1] == 99)
+                    cou++;
+                if (this.gridRep[0, col - 1] == 99)
+                    cou++;
+                if (this.gridRep[1, col + 1] == 99)
+                    cou++;
+                if (this.gridRep[1, col - 1] == 99)
+                    cou++;
+
+            }
+
+            if (row == 9)
+            {
+                if (this.gridRep[row - 1, col] == 99)
+                    cou++;
+                if (this.gridRep[8, col + 1] == 99)
+                    cou++;
+                if (this.gridRep[8, col - 1] == 99)
+                    cou++;
+                if (this.gridRep[9, col + 1] == 99)
+                    cou++;
+                if (this.gridRep[9, col - 1] == 99)
+                    cou++;
+
+            }
+
+            if (this.gridRep[row - 1, col - 1] == 99)
+                cou++;
+            if (this.gridRep[row - 1, col] == 99)
+                cou++;
+            if (this.gridRep[row - 1, col + 1] == 99)
+                cou++;
+            if (this.gridRep[row, col - 1] == 99)
+                cou++;
+            if (this.gridRep[row, col + 1] == 99)
+                cou++;
+            if (this.gridRep[row + 1, col - 1] == 99)
+                cou++;
+            if (this.gridRep[row + 1, col] == 99)
+                cou++;
+            if (this.gridRep[row + 1, col + 1] == 99)
+                cou++;
+
+            return cou;
         }
 
         private bool CheckValidity (int ind, int bomb)
@@ -134,12 +274,14 @@ namespace minesweeper
             ImageView temp = (ImageView)v;
             if (!created)
             {
-                CreateGrid(temp);
+                CreateGrid(getIndex(temp));
             }
+            
         }
 
         public bool OnLongClick(View v)
         {
+            
             if (!created)
             {
                 OnClick(v);
@@ -147,6 +289,31 @@ namespace minesweeper
             }
 
             return true;
+        }
+
+        public bool UncoverTile(int ind)
+        {
+            if (this.gridRep[ind / 10, ind % 10] == 99)
+            {
+                GameLost();
+            }
+        }
+
+        public void GameLost()
+        {
+            UncoverGrid();
+            Thread.Sleep(10000);
+            Toast.MakeText(this, "Game Lost", ToastLength.Short).Show();
+            Intent i = new Intent(this, typeof(Menu));
+            StartActivity(i);
+        }
+
+        public void UncoverGrid()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10)
+            }
         }
     }
 
