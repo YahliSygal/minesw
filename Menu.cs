@@ -48,7 +48,7 @@ namespace minesweeper
 
         public void OnClick(View v)
         {
-            Intent i = new Intent(this, typeof(GameGrid));
+            Intent i = new Intent(this, typeof(score));
             if (v == easy)
             {
                 i.PutExtra("dif", "easy");

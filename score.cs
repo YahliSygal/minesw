@@ -28,7 +28,7 @@ namespace minesweeper
             BackToMenu = FindViewById<Button>(Resource.Id.backToMenuButton);
 
             Con.db.AddScore();
-            scorePlayer.Text = Convert.ToString(Con.db.Getscore());
+            //scorePlayer.Text = Convert.ToString(Con.db.Getscore());
 
             BackToMenu.Click += this.BackToMenu_Click;
         }

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using Xamarin.Essentials;
 
 namespace minesweeper
 {
@@ -98,7 +99,6 @@ namespace minesweeper
             {
                 bombs = Con.HARD_DIFFICULTY;
             }
-            this.covered = bombs;
             BombsRemained.Text = Convert.ToString(uncoveredRight + uncoveredWrong) + "/" + Convert.ToString(covered + uncoveredWrong + uncoveredRight);
             for (int i = 0; i < bombs; i++)
             {
@@ -125,6 +125,7 @@ namespace minesweeper
                     this.gridRep[i, j] = NumOfBombs(i, j);
                 }
             }
+            this.covered = CountBombs();
             this.created = true;
         }
 
@@ -339,10 +340,12 @@ namespace minesweeper
             {
                 this.gridRep[getIndex(temp) / 10, getIndex(temp) % 10] /= 10;
                 this.gridRep[getIndex(temp) / 10, getIndex(temp) % 10]--;
+                temp.SetImageResource(Resource.Drawable.covered);
+
                 uncoveredWrong--;
                 covered++;
             }
-
+            Vibration.Vibrate(TimeSpan.FromMilliseconds(300));
             BombsRemained.Text = Convert.ToString(uncoveredRight + uncoveredWrong) + "/" + Convert.ToString(covered + uncoveredWrong + uncoveredRight);
 
 
@@ -350,7 +353,7 @@ namespace minesweeper
             {
                 GameWon();
             }
-
+            
             return true;
         }
 
@@ -407,7 +410,6 @@ namespace minesweeper
         public void GameWon()
         {
             UncoverGrid();
-            Thread.Sleep(10000);
             Toast.MakeText(this, "Game Won", ToastLength.Short).Show();
             Intent i = new Intent(this, typeof(score));
             StartActivity(i);
@@ -459,6 +461,20 @@ namespace minesweeper
                     }
                 }
             }
+        }
+
+        public int CountBombs()
+        {
+            int cou = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    if (this.gridRep[i, j] == 99)
+                        cou++;
+                }
+            }
+            return cou;
         }
     }
 
