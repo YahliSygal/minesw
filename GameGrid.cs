@@ -107,7 +107,7 @@ namespace minesweeper
 
             if (bomb == ind - 11 || bomb == ind - 10 || bomb == ind - 9)
                 return false;
-            if (bomb = ind + 11 || bomb == ind + 10 || bomb == ind + 9)
+            if (bomb == ind + 11 || bomb == ind + 10 || bomb == ind + 9)
                 return false;
             if (bomb == ind + 1 || bomb == ind - 1)
                 return false;
