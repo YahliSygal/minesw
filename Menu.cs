@@ -68,12 +68,12 @@ namespace minesweeper
         {
             if (this.player.IsPlaying)
             {
-                volume.SetImageBitmap(Android.Graphics.BitmapFactory.DecodeFile("muted"));
+                volume.SetImageResource(Resource.Drawable.muted);
                 stopPlayer();
             }
             else
             {
-                volume.SetImageBitmap(Android.Graphics.BitmapFactory.DecodeFile("unmuted"));
+                volume.SetImageResource(Resource.Drawable.unmuted);
                 startPlayer();
             }
         }
