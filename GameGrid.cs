@@ -55,11 +55,12 @@ namespace minesweeper
 
             if (Con.gPlayer.IsPlaying)
             {
-                volume.SetImageResource(Resource.Drawable.muted);
+
+                volume.SetImageResource(Resource.Drawable.unmuted);
             }
             else
             {
-                volume.SetImageResource(Resource.Drawable.unmuted);
+                volume.SetImageResource(Resource.Drawable.muted);
             }
 
             volume.Click += this.Volume_Click;
