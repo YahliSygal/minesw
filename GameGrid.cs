@@ -99,7 +99,6 @@ namespace minesweeper
             {
                 bombs = Con.HARD_DIFFICULTY;
             }
-            BombsRemained.Text = Convert.ToString(uncoveredRight + uncoveredWrong) + "/" + Convert.ToString(covered + uncoveredWrong + uncoveredRight);
             for (int i = 0; i < bombs; i++)
             {
                 flag = false;
@@ -126,6 +125,7 @@ namespace minesweeper
                 }
             }
             this.covered = CountBombs();
+            BombsRemained.Text = Convert.ToString(uncoveredRight + uncoveredWrong) + "/" + Convert.ToString(covered + uncoveredWrong + uncoveredRight);
             this.created = true;
         }
 
