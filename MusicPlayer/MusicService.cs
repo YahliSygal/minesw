@@ -40,7 +40,6 @@ namespace minesweeper
         private void Play()
         {
             Con.gPlayer = MediaPlayer.Create(Con.gCon, Resource.Raw.mSource);
-            Con.gPlayer.SetDataSource(Resource.Raw.mSource);
             Con.gPlayer.Prepared += (sender, args) => Con.gPlayer.Start();
             Con.gPlayer.Error += (sender, args) =>
             {

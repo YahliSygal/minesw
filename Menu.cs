@@ -15,7 +15,7 @@ namespace minesweeper
     [Activity(Label = "Menu")]
     public class Menu : Activity, Android.Views.View.IOnClickListener
     {
-        //ImageView volume;
+        ImageView volume;
 
         MediaPlayer player;
 
@@ -34,10 +34,10 @@ namespace minesweeper
             normal = FindViewById<Button>(Resource.Id.normalDif);
             hard = FindViewById<Button>(Resource.Id.hardDif);
 
-            //volume = FindViewById<ImageView>(Resource.Id.volumeMenu);
+            volume = FindViewById<ImageView>(Resource.Id.volumeMenu);
 
 
-            //volume.Click += this.Volume_Click;
+            volume.Click += this.Volume_Click;
             startPlayer();
 
             easy.SetOnClickListener(this);
@@ -64,26 +64,26 @@ namespace minesweeper
             StartActivity(i);
         }
 
-        //private void Volume_Click(object sender, EventArgs e)
-        //{
-        //    if (media.IsPlaying)
-        //    {
-        //        volume.SetImageBitmap(Android.Graphics.BitmapFactory.DecodeFile("muted"));
-        //        stopPlayer();
-        //    }
-        //    else
-        //    {
-        //        volume.SetImageBitmap(Android.Graphics.BitmapFactory.DecodeFile("unmuted"));
-        //        startPlayer();
-        //    }
-        //}
+        private void Volume_Click(object sender, EventArgs e)
+        {
+            if (this.player.IsPlaying)
+            {
+                volume.SetImageBitmap(Android.Graphics.BitmapFactory.DecodeFile("muted"));
+                stopPlayer();
+            }
+            else
+            {
+                volume.SetImageBitmap(Android.Graphics.BitmapFactory.DecodeFile("unmuted"));
+                startPlayer();
+            }
+        }
 
-        //protected override void OnResume()
-        //{
-        //    base.OnResume();
-        //    Con.gPlayer = media;
-        //    Con.gCon = this;
-        //}
+        protected override void OnResume()
+        {
+            base.OnResume();
+            Con.gPlayer = media;
+            Con.gCon = this;
+        }
 
         public void startPlayer()
         {
@@ -100,10 +100,10 @@ namespace minesweeper
             StartService(intent);
         }
 
-        //public void stopPlayer()
-        //{
-        //    var intent = new Intent(MusicService.ActionStop);
-        //    StartService(intent);
-        //}
+        public void stopPlayer()
+        {
+            var intent = new Intent(MusicService.ActionStop);
+            StartService(intent);
+        }
     }
 }
