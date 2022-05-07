@@ -12,8 +12,8 @@ namespace minesweeper
         //global variables
         public static DB db = new DB();
         public static string username;
-        //public static MediaPlayer gPlayer = new MediaPlayer();
-        //public static Context gCon;
+        public static MediaPlayer gPlayer = new MediaPlayer();
+        public static Context gCon;
 
         //string constants
         public const string DB_PATH = "scores.sqlite";

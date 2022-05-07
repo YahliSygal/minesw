@@ -17,7 +17,7 @@ namespace minesweeper
     {
         //ImageView volume;
 
-        //MediaPlayer media;
+        MediaPlayer player;
 
         Button easy;
         Button normal;
@@ -39,6 +39,8 @@ namespace minesweeper
 
             //volume.Click += this.Volume_Click;
             //startPlayer();
+
+            player = new MediaPlayer();
 
             easy.SetOnClickListener(this);
             normal.SetOnClickListener(this);
@@ -85,11 +87,14 @@ namespace minesweeper
         //    Con.gCon = this;
         //}
 
-        //public void startPlayer()
-        //{
-        //    var intent = new Intent(MusicService.ActionPlay);
-        //    StartService(intent);
-        //}
+        public void startPlayer()
+        {
+            this.player = Con.gPlayer;
+            Con.gCon = this;
+            
+            var intent = new Intent(MusicService.ActionPlay);
+            StartService(intent);
+        }
 
         //public void stopPlayer()
         //{
