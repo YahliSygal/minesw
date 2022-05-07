@@ -66,7 +66,7 @@ namespace minesweeper
 
         private void Volume_Click(object sender, EventArgs e)
         {
-            if (this.player.IsPlaying)
+            if (Con.gPlayer.IsPlaying)
             {
                 volume.SetImageResource(Resource.Drawable.muted);
                 stopPlayer();

@@ -36,8 +36,6 @@ namespace minesweeper
 
         ImageView volume;
 
-        MediaPlayer player;
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -55,7 +53,14 @@ namespace minesweeper
             dif = Intent.GetStringExtra("dif");
             assignGrid();
 
-            startPlayer();
+            if (Con.gPlayer.IsPlaying)
+            {
+                volume.SetImageResource(Resource.Drawable.muted);
+            }
+            else
+            {
+                volume.SetImageResource(Resource.Drawable.unmuted);
+            }
 
             volume.Click += this.Volume_Click;
             
@@ -63,7 +68,7 @@ namespace minesweeper
 
         private void Volume_Click(object sender, EventArgs e)
         {
-            if (this.player.IsPlaying)
+            if (Con.gPlayer.IsPlaying)
             {
                 volume.SetImageResource(Resource.Drawable.muted);
                 stopPlayer();
@@ -504,7 +509,6 @@ namespace minesweeper
         protected override void OnResume()
         {
             base.OnResume();
-            this.player = Con.gPlayer;
             Con.gCon = this;
         }
 
@@ -514,7 +518,6 @@ namespace minesweeper
             {
                 Con.gPlayer = new MediaPlayer();
             }
-            this.player = Con.gPlayer;
             Con.gCon = this;
 
 
