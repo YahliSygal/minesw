@@ -39,6 +39,16 @@
         android:layout_marginLeft="20dp"
         />
 
+        <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/unmuted"
+        android:layout_gravity="right"
+        android:layout_marginRight="3dp"
+        android:layout_marginTop="3dp"
+        android:id="@+id/volumeGame"
+        />
+
       </LinearLayout>
 
         <LinearLayout

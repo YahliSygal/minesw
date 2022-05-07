@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Media;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -33,6 +34,10 @@ namespace minesweeper
 
         TextView BombsRemained;
 
+        ImageView volume;
+
+        MediaPlayer player;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -40,6 +45,7 @@ namespace minesweeper
 
             // Create your application here
 
+            volume = FindViewById<ImageView>(Resource.Id.volumeGame);
             BombsRemained = FindViewById<TextView>(Resource.Id.BombsRemained);
             Back = FindViewById<Button>(Resource.Id.BackButton);
             Back.Click += this.Back_Click;
@@ -48,7 +54,25 @@ namespace minesweeper
 
             dif = Intent.GetStringExtra("dif");
             assignGrid();
+
+            startPlayer();
+
+            volume.Click += this.Volume_Click;
             
+        }
+
+        private void Volume_Click(object sender, EventArgs e)
+        {
+            if (this.player.IsPlaying)
+            {
+                volume.SetImageBitmap(Android.Graphics.BitmapFactory.DecodeFile("muted"));
+                stopPlayer();
+            }
+            else
+            {
+                volume.SetImageBitmap(Android.Graphics.BitmapFactory.DecodeFile("unmuted"));
+                startPlayer();
+            }
         }
 
         private void Back_Click(object sender, EventArgs e)
@@ -475,6 +499,34 @@ namespace minesweeper
                 }
             }
             return cou;
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            this.player = Con.gPlayer;
+            Con.gCon = this;
+        }
+
+        public void startPlayer()
+        {
+            if (Con.gPlayer == null)
+            {
+                Con.gPlayer = new MediaPlayer();
+            }
+            this.player = Con.gPlayer;
+            Con.gCon = this;
+
+
+            var intent = new Intent(this, typeof(MusicService));
+            intent.SetAction("com.xamarin.action.PLAY");
+            StartService(intent);
+        }
+
+        public void stopPlayer()
+        {
+            var intent = new Intent(MusicService.ActionStop);
+            StartService(intent);
         }
     }
 

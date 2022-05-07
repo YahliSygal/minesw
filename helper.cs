@@ -90,7 +90,6 @@ namespace minesweeper
         public void AddScore()
         {
             string res = this.con.Query<DatabaseT>(@"select score from users where username='" + Con.username + "';")[0].score;
-            System.Diagnostics.Debug.Write("wrote: " + res);
             res = (int.Parse(res) + 1).ToString();
             this.con.Execute("UPDATE users set score='" + res + "' where USERNAME='" + Con.username + "';");
         }

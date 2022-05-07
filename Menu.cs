@@ -81,7 +81,7 @@ namespace minesweeper
         protected override void OnResume()
         {
             base.OnResume();
-            Con.gPlayer = media;
+            this.player = Con.gPlayer;
             Con.gCon = this;
         }
 

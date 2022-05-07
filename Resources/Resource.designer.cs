@@ -4467,13 +4467,16 @@ namespace minesweeper
 			public const int visible_removing_fragment_view_tag = 2131231067;
 			
 			// aapt resource value: 0x7F08015C
-			public const int volumeMenu = 2131231068;
+			public const int volumeGame = 2131231068;
 			
 			// aapt resource value: 0x7F08015D
-			public const int withText = 2131231069;
+			public const int volumeMenu = 2131231069;
 			
 			// aapt resource value: 0x7F08015E
-			public const int wrap_content = 2131231070;
+			public const int withText = 2131231070;
+			
+			// aapt resource value: 0x7F08015F
+			public const int wrap_content = 2131231071;
 			
 			static Id()
 			{
