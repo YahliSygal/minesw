@@ -121,7 +121,7 @@
     <AndroidResource Include="Resources\drawable\unmuted.jpeg" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MusicPlayer\mSource.mp3" />
+    <Content Include="Resources\raw\mSource.mp3" />
     <AndroidResource Include="Resources\layout\loginLayout.xml">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
       <SubType>Designer</SubType>

@@ -39,8 +39,8 @@ namespace minesweeper
 
         private void Play()
         {
-            Con.gPlayer = MediaPlayer.Create(Con.gCon, Android.Net.Uri.Parse("file://mSource.mp3"));
-            Con.gPlayer.SetDataSource("mSource");
+            Con.gPlayer = MediaPlayer.Create(Con.gCon, Resource.Raw);
+            Con.gPlayer.SetDataSource(Con.gCon, Android.Net.Uri.Parse("mSource.mp3"));
             Con.gPlayer.Prepared += (sender, args) => Con.gPlayer.Start();
             Con.gPlayer.Error += (sender, args) =>
             {

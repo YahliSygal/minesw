@@ -38,9 +38,7 @@ namespace minesweeper
 
 
             //volume.Click += this.Volume_Click;
-            //startPlayer();
-
-            player = new MediaPlayer();
+            startPlayer();
 
             easy.SetOnClickListener(this);
             normal.SetOnClickListener(this);
@@ -89,10 +87,16 @@ namespace minesweeper
 
         public void startPlayer()
         {
+            if(Con.gPlayer == null)
+            {
+                Con.gPlayer = new MediaPlayer();
+            }
             this.player = Con.gPlayer;
             Con.gCon = this;
+
             
-            var intent = new Intent(MusicService.ActionPlay);
+            var intent = new Intent(this, typeof(MusicService));
+            intent.SetAction("com.xamarin.action.PLAY");
             StartService(intent);
         }
 
