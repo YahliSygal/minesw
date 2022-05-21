@@ -14,6 +14,8 @@ namespace minesweeper
         public static string username;
         public static MediaPlayer gPlayer = new MediaPlayer();
         public static Context gCon;
+        public static string difComp = "";
+        public static int bombsComp = 0;
 
         //string constants
         public const string DB_PATH = "scores.sqlite";

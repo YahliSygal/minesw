@@ -440,6 +440,8 @@ namespace minesweeper
         public void GameWon()
         {
             UncoverGrid();
+            Con.difComp = this.dif;
+            Con.bombsComp = uncoveredRight;
             Toast.MakeText(this, "Game Won", ToastLength.Short).Show();
             Intent i = new Intent(this, typeof(score));
             StartActivity(i);
