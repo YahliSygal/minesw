@@ -98,10 +98,9 @@ namespace minesweeper
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    this.grid[i, j] = new Cell(this);
                     this.grid[i, j].image = FindViewById<ImageView>(Resource.Id.tile00 + i * 10 + j);
-                    this.grid[i, j].SetOnClickListener(this);
-                    this.grid[i, j].SetOnLongClickListener(this);
+                    this.grid[i, j].image.SetOnClickListener(this);
+                    this.grid[i, j].image.SetOnLongClickListener(this);
                     //this.gridRep[i, j] = 0;
                 }
             }
