@@ -65,7 +65,7 @@ namespace minesweeper
                         break;
                 }
             }
-            else if (resId = 2)
+            else if (resId == 2)
             {
                 resId = Resource.Drawable.covered;
             }
