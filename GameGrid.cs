@@ -26,8 +26,8 @@ namespace minesweeper
         int uncoveredWrong;
         int covered;
 
-        ImageView[,] grid = new ImageView[10, 10];
-        int[,] gridRep = new int[10, 10];
+        Cell[,] grid = new Cell[10, 10];
+        //int[,] gridRep = new int[10, 10];
 
         Button uncoverB;
         Button Back;
@@ -98,10 +98,10 @@ namespace minesweeper
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    this.grid[i, j] = FindViewById<ImageView>(Resource.Id.tile00 + i * 10 + j);
+                    this.grid[i, j] = (Cell)FindViewById<ImageView>(Resource.Id.tile00 + i * 10 + j);
                     this.grid[i, j].SetOnClickListener(this);
                     this.grid[i, j].SetOnLongClickListener(this);
-                    this.gridRep[i, j] = 0;
+                    //this.gridRep[i, j] = 0;
                 }
             }
         }
@@ -138,7 +138,7 @@ namespace minesweeper
                     if (CheckValidity(ind, temp))
                     {
                         flag = true;
-                        this.gridRep[temp / 10, temp % 10] = 99;
+                        this.grid[temp / 10, temp % 10].IsBomb = true;
                     }
                 } while (!flag);
             }
@@ -147,11 +147,11 @@ namespace minesweeper
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    if (this.gridRep[i, j] == 99)
+                    if (this.grid[i, j].IsBomb)
                     {
                         continue;
                     }
-                    this.gridRep[i, j] = NumOfBombs(i, j);
+                    this.grid[i, j].surrounded = NumOfBombs(i, j);
                 }
             }
             this.covered = CountBombs();
@@ -164,111 +164,111 @@ namespace minesweeper
             int cou = 0;
             if (col == 9)
             {
-                if (this.gridRep[row, col - 1] == 99)
+                if (this.grid[row, col - 1].IsBomb)
                     cou++;
                 if (row == 0)
                 {
-                    if (this.gridRep[1, 8] == 99)
+                    if (this.grid[1, 8].IsBomb)
                         cou++;
-                    if (this.gridRep[1, 9] == 99)
+                    if (this.grid[1, 9].IsBomb)
                         cou++;
                     return cou;
                 }
                 if (row == 9)
                 {
-                    if (this.gridRep[8, 8] == 99)
+                    if (this.grid[8, 8].IsBomb)
                         cou++;
-                    if (this.gridRep[8, 9] == 99)
+                    if (this.grid[8, 9].IsBomb)
                         cou++;
                     return cou;
                 }
-                if (this.gridRep[row + 1, 8] == 99)
+                if (this.grid[row + 1, 8].IsBomb)
                     cou++;
-                if (this.gridRep[row + 1, 9] == 99)
+                if (this.grid[row + 1, 9].IsBomb)
                     cou++;
-                if (this.gridRep[row - 1, 8] == 99)
+                if (this.grid[row - 1, 8].IsBomb)
                     cou++;
-                if (this.gridRep[row - 1, 9] == 99)
+                if (this.grid[row - 1, 9].IsBomb)
                     cou++;
                 return cou;
             }
 
             if (col == 0)
             {
-                if (this.gridRep[row, col + 1] == 99)
+                if (this.grid[row, col + 1].IsBomb)
                     cou++;
                 if (row == 0)
                 {
-                    if (this.gridRep[1, 0] == 99)
+                    if (this.grid[1, 0].IsBomb)
                         cou++;
-                    if (this.gridRep[1, 1] == 99)
+                    if (this.grid[1, 1].IsBomb)
                         cou++;
                     return cou;
                 }
                 if (row == 9)
                 {
-                    if (this.gridRep[8, 0] == 99)
+                    if (this.grid[8, 0].IsBomb)
                         cou++;
-                    if (this.gridRep[8, 1] == 99)
+                    if (this.grid[8, 1].IsBomb)
                         cou++;
                     return cou;
                 }
-                if (this.gridRep[row + 1, 0] == 99)
+                if (this.grid[row + 1, 0].IsBomb)
                     cou++;
-                if (this.gridRep[row + 1, 1] == 99)
+                if (this.grid[row + 1, 1].IsBomb)
                     cou++;
-                if (this.gridRep[row - 1, 0] == 99)
+                if (this.grid[row - 1, 0].IsBomb)
                     cou++;
-                if (this.gridRep[row - 1, 1] == 99)
+                if (this.grid[row - 1, 1].IsBomb)
                     cou++;
                 return cou;
             }
 
             if (row == 0)
             {
-                if (this.gridRep[row + 1, col] == 99)
+                if (this.grid[row + 1, col].IsBomb)
                     cou++;
-                if (this.gridRep[0, col + 1] == 99)
+                if (this.grid[0, col + 1].IsBomb)
                     cou++;
-                if (this.gridRep[0, col - 1] == 99)
+                if (this.grid[0, col - 1].IsBomb)
                     cou++;
-                if (this.gridRep[1, col + 1] == 99)
+                if (this.grid[1, col + 1].IsBomb)
                     cou++;
-                if (this.gridRep[1, col - 1] == 99)
+                if (this.grid[1, col - 1].IsBomb)
                     cou++;
                 return cou;
             }
 
             if (row == 9)
             {
-                if (this.gridRep[row - 1, col] == 99)
+                if (this.grid[row - 1, col].IsBomb)
                     cou++;
-                if (this.gridRep[8, col + 1] == 99)
+                if (this.grid[8, col + 1].IsBomb)
                     cou++;
-                if (this.gridRep[8, col - 1] == 99)
+                if (this.grid[8, col - 1].IsBomb)
                     cou++;
-                if (this.gridRep[9, col + 1] == 99)
+                if (this.grid[9, col + 1].IsBomb)
                     cou++;
-                if (this.gridRep[9, col - 1] == 99)
+                if (this.grid[9, col - 1].IsBomb)
                     cou++;
                 return cou;
             }
 
-            if (this.gridRep[row - 1, col - 1] == 99)
+            if (this.grid[row - 1, col - 1].IsBomb)
                 cou++;
-            if (this.gridRep[row - 1, col] == 99)
+            if (this.grid[row - 1, col].IsBomb)
                 cou++;
-            if (this.gridRep[row - 1, col + 1] == 99)
+            if (this.grid[row - 1, col + 1].IsBomb)
                 cou++;
-            if (this.gridRep[row, col - 1] == 99)
+            if (this.grid[row, col - 1].IsBomb)
                 cou++;
-            if (this.gridRep[row, col + 1] == 99)
+            if (this.grid[row, col + 1].IsBomb)
                 cou++;
-            if (this.gridRep[row + 1, col - 1] == 99)
+            if (this.grid[row + 1, col - 1].IsBomb)
                 cou++;
-            if (this.gridRep[row + 1, col] == 99)
+            if (this.grid[row + 1, col].IsBomb)
                 cou++;
-            if (this.gridRep[row + 1, col + 1] == 99)
+            if (this.grid[row + 1, col + 1].IsBomb)
                 cou++;
 
             return cou;
@@ -344,32 +344,30 @@ namespace minesweeper
                 return true;
             }
             ImageView temp = (ImageView)v;
-            if (this.gridRep[getIndex(temp) / 10, getIndex(temp) % 10] == 99)
-            {              
-                this.gridRep[getIndex(temp) / 10, getIndex(temp) % 10] = 999;
+            if (this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsBomb && !this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsFlagged)
+            {
+                this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsFlagged = true;
                 temp.SetImageResource(Resource.Drawable.flagged);
                 uncoveredRight++;
                 covered--;
             }
-            else if (this.gridRep[getIndex(temp) / 10, getIndex(temp) % 10] < 9)
+            else if (!this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsBomb && !this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsFlagged)
             {
-                this.gridRep[getIndex(temp) / 10, getIndex(temp) % 10]++;
-                this.gridRep[getIndex(temp) / 10, getIndex(temp) % 10] *= 10;
+                this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsFlagged = true;
                 temp.SetImageResource(Resource.Drawable.flagged);
                 uncoveredWrong++;
                 covered--;
             }
-            else if (this.gridRep[getIndex(temp) / 10, getIndex(temp) % 10] == 999)
+            else if (this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsBomb && this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsFlagged)
             {
-                this.gridRep[getIndex(temp) / 10, getIndex(temp) % 10] = 99;
+                this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsFlagged = false;
                 temp.SetImageResource(Resource.Drawable.covered);
                 uncoveredRight--;
                 covered++;
             }
             else
             {
-                this.gridRep[getIndex(temp) / 10, getIndex(temp) % 10] /= 10;
-                this.gridRep[getIndex(temp) / 10, getIndex(temp) % 10]--;
+                this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsFlagged = false;
                 temp.SetImageResource(Resource.Drawable.covered);
 
                 uncoveredWrong--;
@@ -389,7 +387,7 @@ namespace minesweeper
 
         public bool UncoverTile(int ind)
         {
-            if (this.gridRep[ind / 10, ind % 10] == 99)
+            if (this.grid[ind / 10, ind % 10].IsBomb)
             {
                 this.grid[ind / 10, ind % 10].SetImageResource(Resource.Drawable.bomb);
                 GameLost();
@@ -398,7 +396,7 @@ namespace minesweeper
             int i = ind / 10;
             int j = ind % 10;
 
-            switch (this.gridRep[i, j])
+            switch (this.grid[i, j].surrounded)
             {
                 case 0:
                     this.grid[i, j].SetImageResource(Resource.Drawable.blank);
@@ -453,12 +451,7 @@ namespace minesweeper
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    if (this.gridRep[i, j] > 8 && this.gridRep[i, j] < 91)
-                    {
-                        this.gridRep[i, j] /= 10;
-                        this.gridRep[i, j]--;
-                    }
-                    switch (this.gridRep[i, j])
+                    switch (this.grid[i, j].surrounded)
                     {
                         case 0:
                             this.grid[i, j].SetImageResource(Resource.Drawable.blank);
@@ -502,7 +495,7 @@ namespace minesweeper
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    if (this.gridRep[i, j] == 99)
+                    if (this.grid[i, j].IsBomb)
                         cou++;
                 }
             }
