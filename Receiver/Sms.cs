@@ -19,6 +19,7 @@ namespace minesweeper.Receiver
         public override async void OnReceive(Context context, Intent intent)
         {
             string text = "I completed a minewseeper game on " + Con.difComp + " difficulty with " + Con.bombsComp.ToString() + " Bombs";
+            System.Diagnostics.Debug.Write("poli: here");
             await Share.RequestAsync(new ShareTextRequest
             {
                 Text = text,
