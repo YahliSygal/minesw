@@ -67,7 +67,6 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="MusicPlayer\MusicService.cs" />
-    <Compile Include="MusicPlayer\MusicServiceTemplate.cs" />
     <Compile Include="Receiver\Sms.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
