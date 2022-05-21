@@ -11,12 +11,17 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
-namespace minesweeper.Receiver
+namespace minesweeper
 {
     [BroadcastReceiver(Enabled = true)]
     [IntentFilter(new[] { "game.completed.successfully" })]
-    public class Sms : BroadcastReceiver
+    public class ShareRes : BroadcastReceiver
     {
+
+        public ShareRes()
+        {
+
+        }
 
         public async Task ShareText(string text)
         {

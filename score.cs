@@ -19,6 +19,8 @@ namespace minesweeper
         Button BackToMenu;
         Button Share;
 
+        ShareRes SRec;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -34,6 +36,10 @@ namespace minesweeper
 
             BackToMenu.Click += this.BackToMenu_Click;
             Share.Click += this.Share_Click;
+
+            this.SRec = new ShareRes();
+            IntentFilter intentf = new IntentFilter("game.completed.successfully");
+            this.RegisterReceiver(this.SRec, intentf);
         }
 
         private void Share_Click(object sender, EventArgs e)
