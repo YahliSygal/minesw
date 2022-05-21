@@ -348,28 +348,28 @@ namespace minesweeper
             if (this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsBomb && !this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsFlagged)
             {
                 this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsFlagged = true;
-                temp.SetImageResource(0);
+                this.grid[getIndex(temp) / 10, getIndex(temp) % 10].image.SetImageResource(0);
                 uncoveredRight++;
                 covered--;
             }
             else if (!this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsBomb && !this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsFlagged)
             {
                 this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsFlagged = true;
-                temp.SetImageResource(0);
+                this.grid[getIndex(temp) / 10, getIndex(temp) % 10].image.SetImageResource(0);
                 uncoveredWrong++;
                 covered--;
             }
             else if (this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsBomb && this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsFlagged)
             {
                 this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsFlagged = false;
-                temp.SetImageResource(2);
+                this.grid[getIndex(temp) / 10, getIndex(temp) % 10].image.SetImageResource(2);
                 uncoveredRight--;
                 covered++;
             }
             else
             {
                 this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsFlagged = false;
-                temp.SetImageResource(2);
+                this.grid[getIndex(temp) / 10, getIndex(temp) % 10].image.SetImageResource(2);
 
                 uncoveredWrong--;
                 covered++;
