@@ -74,7 +74,7 @@ namespace minesweeper
             {
                 resId = Resource.Drawable.flagged;
             }
-            base.SetImageResource(resId);
+            this.image.SetImageResource(resId)
         }
     }
 }
