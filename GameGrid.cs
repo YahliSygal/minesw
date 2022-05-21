@@ -98,7 +98,7 @@ namespace minesweeper
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    this.grid[i, j] = FindViewById<Cell>(Resource.Id.tile00 + i * 10 + j);
+                    this.grid[i, j].image = FindViewById<ImageView>(Resource.Id.tile00 + i * 10 + j);
                     this.grid[i, j].SetOnClickListener(this);
                     this.grid[i, j].SetOnLongClickListener(this);
                     //this.gridRep[i, j] = 0;
@@ -347,28 +347,28 @@ namespace minesweeper
             if (this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsBomb && !this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsFlagged)
             {
                 this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsFlagged = true;
-                temp.SetImageResource(Resource.Drawable.flagged);
+                temp.SetImageResource(0);
                 uncoveredRight++;
                 covered--;
             }
             else if (!this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsBomb && !this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsFlagged)
             {
                 this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsFlagged = true;
-                temp.SetImageResource(Resource.Drawable.flagged);
+                temp.SetImageResource(0);
                 uncoveredWrong++;
                 covered--;
             }
             else if (this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsBomb && this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsFlagged)
             {
                 this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsFlagged = false;
-                temp.SetImageResource(Resource.Drawable.covered);
+                temp.SetImageResource(2);
                 uncoveredRight--;
                 covered++;
             }
             else
             {
                 this.grid[getIndex(temp) / 10, getIndex(temp) % 10].IsFlagged = false;
-                temp.SetImageResource(Resource.Drawable.covered);
+                temp.SetImageResource(2);
 
                 uncoveredWrong--;
                 covered++;
@@ -387,44 +387,11 @@ namespace minesweeper
 
         public bool UncoverTile(int ind)
         {
+            this.grid[ind / 10, ind % 10].SetImageResource(1);
             if (this.grid[ind / 10, ind % 10].IsBomb)
             {
-                this.grid[ind / 10, ind % 10].SetImageResource(Resource.Drawable.bomb);
                 GameLost();
                 return false;
-            }
-            int i = ind / 10;
-            int j = ind % 10;
-
-            switch (this.grid[i, j].surrounded)
-            {
-                case 0:
-                    this.grid[i, j].SetImageResource(Resource.Drawable.blank);
-                    break;
-                case 1:
-                    this.grid[i, j].SetImageResource(Resource.Drawable.one);
-                    break;
-                case 2:
-                    this.grid[i, j].SetImageResource(Resource.Drawable.two);
-                    break;
-                case 3:
-                    this.grid[i, j].SetImageResource(Resource.Drawable.three);
-                    break;
-                case 4:
-                    this.grid[i, j].SetImageResource(Resource.Drawable.four);
-                    break;
-                case 5:
-                    this.grid[i, j].SetImageResource(Resource.Drawable.five);
-                    break;
-                case 6:
-                    this.grid[i, j].SetImageResource(Resource.Drawable.six);
-                    break;
-                case 7:
-                    this.grid[i, j].SetImageResource(Resource.Drawable.seven);
-                    break;
-                case 8:
-                    this.grid[i, j].SetImageResource(Resource.Drawable.eight);
-                    break;
             }
             return true;
         }
@@ -451,39 +418,7 @@ namespace minesweeper
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    switch (this.grid[i, j].surrounded)
-                    {
-                        case 0:
-                            this.grid[i, j].SetImageResource(Resource.Drawable.blank);
-                            break;
-                        case 1:
-                            this.grid[i, j].SetImageResource(Resource.Drawable.one);
-                            break;
-                        case 2:
-                            this.grid[i, j].SetImageResource(Resource.Drawable.two);
-                            break;
-                        case 3:
-                            this.grid[i, j].SetImageResource(Resource.Drawable.three);
-                            break;
-                        case 4:
-                            this.grid[i, j].SetImageResource(Resource.Drawable.four);
-                            break;
-                        case 5:
-                            this.grid[i, j].SetImageResource(Resource.Drawable.five);
-                            break;
-                        case 6:
-                            this.grid[i, j].SetImageResource(Resource.Drawable.six);
-                            break;
-                        case 7:
-                            this.grid[i, j].SetImageResource(Resource.Drawable.seven);
-                            break;
-                        case 8:
-                            this.grid[i, j].SetImageResource(Resource.Drawable.eight);
-                            break;
-                        case 99:
-                            this.grid[i, j].SetImageResource(Resource.Drawable.bomb);
-                            break;
-                    }
+                    this.grid[i, j].SetImageResource(1);
                 }
             }
         }
