@@ -524,7 +524,8 @@ namespace minesweeper
 
         public void stopPlayer()
         {
-            var intent = new Intent(MusicService.ActionStop);
+            var intent = new Intent(this, typeof(MusicService));
+            intent.SetAction("com.xamarin.action.MUTE");
             StartService(intent);
         }
     }
