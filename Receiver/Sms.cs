@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace minesweeper.Receiver
@@ -16,15 +17,20 @@ namespace minesweeper.Receiver
     [IntentFilter(new[] { "game.completed.successfully" })]
     public class Sms : BroadcastReceiver
     {
-        public override async void OnReceive(Context context, Intent intent)
+
+        public async Task ShareText(string text)
         {
-            string text = "I completed a minewseeper game on " + Con.difComp + " difficulty with " + Con.bombsComp.ToString() + " Bombs";
-            System.Diagnostics.Debug.Write("poli: here");
             await Share.RequestAsync(new ShareTextRequest
             {
                 Text = text,
                 Title = "Share Text"
             });
+        }
+
+        public override async void OnReceive(Context context, Intent intent)
+        {
+            await this.ShareText("I completed a minewseeper game on " + Con.difComp + " difficulty with " + Con.bombsComp.ToString() + " Bombs");
+
         }
     }
 }
