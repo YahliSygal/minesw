@@ -317,7 +317,7 @@ namespace minesweeper
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    if (this.grid[i, j] == ima)
+                    if (this.grid[i, j].image == ima)
                     {
                         return (i * 10 + j);
                     }
