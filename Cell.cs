@@ -24,6 +24,7 @@ namespace minesweeper
             IsBomb = false;
             IsFlagged = false;
             surrounded = 0;
+            this.image = new ImageView(context);
         }
 
         public override void SetImageResource(int resId)
